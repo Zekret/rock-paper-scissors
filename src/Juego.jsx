@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const options = [
   { id: 0, name: "Piedra", emoji: "📦", beats: [2, 3] },
@@ -10,37 +10,54 @@ const options = [
 
 const getResult = (userChoice, machineChoice) => {
   if (userChoice === machineChoice) {
-    return 0
+    return 0;
   }
   if (options[userChoice].beats.includes(machineChoice)) {
-    return 1
+    return 1;
   }
 
-  return 2
-}
+  return 2;
+};
 
 function App() {
   const [userChoice, setUserChoice] = useState(null);
   const [machineChoice, setMachineChoice] = useState(null);
   const [result, setResult] = useState(null);
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
+  const [userMessage, setUserMessage] = useState(null);
+  const [machineMessage, setMachineMessage] = useState(null);
+
+  useEffect(() => {
+    if (userChoice !== null) {
+      setUserMessage(
+        `Has elegido ${options[userChoice]?.emoji} - ${options[userChoice]?.name}`
+      );
+    }
+  }, [userChoice]);
+
+  useEffect(() => {
+    if (machineChoice !== null) {
+      setUserMessage(
+        `El bot ha elegido ${options[machineChoice]?.emoji} - ${options[machineChoice]?.name}`
+      );
+    }
+  }, [machineChoice]);
 
   const handlePlay = (choice) => {
-    setUserChoice(choice)
-    setDisabled(true)
-    const randomChoice = Math.floor(Math.random() * 5)
+    setUserChoice(choice);
+    setDisabled(true);
+    const randomChoice = Math.floor(Math.random() * 5);
 
     setTimeout(() => {
-      setMachineChoice(randomChoice)
-    }, 1500)
+      setMachineChoice(randomChoice);
+    }, 1500);
 
     setTimeout(() => {
       setResult(getResult(choice, randomChoice));
     }, 3000);
 
-    clearTimeout()
-
-  }
+    clearTimeout();
+  };
   return (
     <div className="flex items-center justify-center h-screen bg-gray-800">
       <div className="rounded-lg p-4 bg-gray-500">
@@ -57,6 +74,27 @@ function App() {
               {option.emoji}
             </button>
           ))}
+          {userChoice !== null && <p className="text-xl mt-4">{userMessage}</p>}
+          {machineChoice !== null && (
+            <p className="text-xl mt-4">{machineMessage}</p>
+          )}
+          {result !== null && (
+            <div className="mt-8">
+              {result === 0 && <p className="text-xl mt-4">🤷🏽‍♀️ Empate</p>}
+              {result === 1 && (
+                <p className="text-xl mt-4">
+                  ✅ Has ganado con {options[userChoice]?.name} contra{" "}
+                  {options[machineChoice]?.name}
+                </p>
+              )}
+              {result === 2 && (
+                <p className="text-xl mt-4">
+                  ❌ Has perdido con {options[userChoice]?.name} contra{" "}
+                  {options[machineChoice]?.name}
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
