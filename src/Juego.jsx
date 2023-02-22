@@ -9,12 +9,17 @@ const options = [
 ];
 
 function App() {
-  const [userChoice, setUserChoice] = useState(null)
-  const [machineChoice, setMachineChoice] = useState(null)
-  const [result, setResult] = useState(null)
+  const [userChoice, setUserChoice] = useState(null);
+  const [machineChoice, setMachineChoice] = useState(null);
+  const [result, setResult] = useState(null);
   return (
-    <div>Hola</div>
-  )
+    <div className="flex items-center justify-center h-screen bg-gray-800">
+      <div className="rounded-lg p-4 bg-gray-500">
+        <h1 className="text-3xl mb-4 text-center font-bold">¡A jugar!</h1>
+       
+      </div>
+    </div>
+  );
 }
 
 export default App;
