@@ -58,6 +58,15 @@ function App() {
 
     clearTimeout();
   };
+
+  const reset = () => {
+    setUserChoice(null);
+    setMachineChoice(null);
+    setUserMessage(null);
+    setMachineMessage(null);
+    setResult(null);
+    setDisabled(false);
+  };
   return (
     <div className="flex items-center justify-center h-screen bg-gray-800">
       <div className="rounded-lg p-4 bg-gray-500">
@@ -93,6 +102,12 @@ function App() {
                   {options[machineChoice]?.name}
                 </p>
               )}
+              <button
+                className="bg-yellow-500 hover:bg-yellow-700 text-black font-semibold py-2 px-4 mt-4 border-b-4 border-yellow-700"
+                onClick={reset}
+              >
+                Jugar de nuevo
+              </button>
             </div>
           )}
         </div>
