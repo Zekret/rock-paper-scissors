@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const options = [
   { id: 0, name: "Piedra", emoji: "🪨", beats: [2, 3] },
   { id: 1, name: "Papel", emoji: "📄", beats: [0] },
@@ -7,7 +9,12 @@ const options = [
 ];
 
 function App() {
-  return <div className="App">Juego Piedra, papel o tijeras</div>;
+  const [userChoice, setUserChoice] = useState(null)
+  const [machineChoice, setMachineChoice] = useState(null)
+  const [result, setResult] = useState(null)
+  return (
+    <div>Hola</div>
+  )
 }
 
 export default App;
