@@ -1,3 +1,4 @@
+import confetti from "canvas-confetti"
 import { useEffect, useState } from "react";
 import { useChoices } from "./hooks/useChoices";
 
@@ -34,6 +35,12 @@ function App() {
   const [result, setResult] = useState(null);
   const [disabled, setDisabled] = useState(false);
 
+  useEffect(() => {
+    if (result === 1) {
+      confetti()
+    }
+  }, [result])
+
   const handlePlay = (choice) => {
     setUserChoice(choice);
     setDisabled(true);
@@ -64,7 +71,7 @@ function App() {
       <div className="rounded-lg p-4 bg-gray-500">
         <h1 className="text-3xl mb-4 text-center font-bold">¡A jugar!</h1>
         <h2 className="text-1xl mb-3 text-center font-semibold">
-          Selecciona una opción para empezar
+          Selecciona una opción
         </h2>
         <div className="max-w-md mx-auto">
           {options.map((option) => (
