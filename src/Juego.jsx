@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useChoices } from "./hooks/useChoices";
 
 const options = [
   { id: 0, name: "Piedra", emoji: "📦", beats: [2, 3] },
@@ -20,28 +21,18 @@ const getResult = (userChoice, machineChoice) => {
 };
 
 function App() {
-  const [userChoice, setUserChoice] = useState(null);
-  const [machineChoice, setMachineChoice] = useState(null);
+  const {
+    userChoice,
+    setUserChoice,
+    machineChoice,
+    setMachineChoice,
+    userMessage,
+    machineMessage,
+    setUserMessage,
+    setMachineMessage,
+  } = useChoices({ options });
   const [result, setResult] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [userMessage, setUserMessage] = useState(null);
-  const [machineMessage, setMachineMessage] = useState(null);
-
-  useEffect(() => {
-    if (userChoice !== null) {
-      setUserMessage(
-        `Has elegido ${options[userChoice]?.emoji} - ${options[userChoice]?.name}`
-      );
-    }
-  }, [userChoice]);
-
-  useEffect(() => {
-    if (machineChoice !== null) {
-      setUserMessage(
-        `El bot ha elegido ${options[machineChoice]?.emoji} - ${options[machineChoice]?.name}`
-      );
-    }
-  }, [machineChoice]);
 
   const handlePlay = (choice) => {
     setUserChoice(choice);
@@ -67,11 +58,14 @@ function App() {
     setResult(null);
     setDisabled(false);
   };
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-800">
       <div className="rounded-lg p-4 bg-gray-500">
         <h1 className="text-3xl mb-4 text-center font-bold">¡A jugar!</h1>
-        <h2 className="text-1xl mb-3 text-center font-semibold">Selecciona una opción para empezar</h2>
+        <h2 className="text-1xl mb-3 text-center font-semibold">
+          Selecciona una opción para empezar
+        </h2>
         <div className="max-w-md mx-auto">
           {options.map((option) => (
             <button
