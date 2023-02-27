@@ -71,6 +71,7 @@ function App() {
     <div className="flex items-center justify-center h-screen bg-gray-800">
       <div className="rounded-lg p-4 bg-gray-500">
         <h1 className="text-3xl mb-4 text-center font-bold">¡A jugar!</h1>
+        <h2 className="text-1xl mb-3 text-center font-semibold">Selecciona una opción para empezar</h2>
         <div className="max-w-md mx-auto">
           {options.map((option) => (
             <button
@@ -83,31 +84,37 @@ function App() {
               {option.emoji}
             </button>
           ))}
-          {userChoice !== null && <p className="text-xl mt-4">{userMessage}</p>}
+          {userChoice !== null && (
+            <p className="text-xl mt-4 text-center">{userMessage}</p>
+          )}
           {machineChoice !== null && (
-            <p className="text-xl mt-4">{machineMessage}</p>
+            <p className="text-xl mt-4 text-center">{machineMessage}</p>
           )}
           {result !== null && (
             <div className="mt-8">
-              {result === 0 && <p className="text-xl mt-4">🤷🏽‍♀️ Empate</p>}
+              {result === 0 && (
+                <p className="text-xl mt-4 text-center">🤷🏽‍♀️ Empate</p>
+              )}
               {result === 1 && (
-                <p className="text-xl mt-4">
+                <p className="text-xl mt-4 text-center">
                   ✅ Has ganado con {options[userChoice]?.name} contra{" "}
                   {options[machineChoice]?.name}
                 </p>
               )}
               {result === 2 && (
-                <p className="text-xl mt-4">
+                <p className="text-xl mt-4 text-center">
                   ❌ Has perdido con {options[userChoice]?.name} contra{" "}
                   {options[machineChoice]?.name}
                 </p>
               )}
-              <button
-                className="bg-yellow-500 hover:bg-yellow-700 text-black font-semibold py-2 px-4 mt-4 border-b-4 border-yellow-700"
-                onClick={reset}
-              >
-                Jugar de nuevo
-              </button>
+              <div className="flex place-content-center">
+                <button
+                  className="bg-yellow-500 hover:bg-yellow-700 text-black font-semibold py-2 px-4 mt-4 border-b-4 border-yellow-700"
+                  onClick={reset}
+                >
+                  Jugar de nuevo
+                </button>
+              </div>
             </div>
           )}
         </div>
